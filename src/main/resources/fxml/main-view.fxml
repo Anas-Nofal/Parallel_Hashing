@@ -1,0 +1,251 @@
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.parallelhashing.controller.MainController"
+            prefWidth="1000"
+            prefHeight="850"
+            styleClass="root">
+
+    <top>
+        <VBox spacing="8" styleClass="header">
+            <Label text="PARALLEL HASHING LAB"
+                   styleClass="main-title"/>
+
+            <Label text="Educational SHA-256 Search and Performance Analyzer"
+                   styleClass="subtitle"/>
+        </VBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true"
+                    hbarPolicy="NEVER">
+            <content>
+                <VBox spacing="18" styleClass="content">
+
+                    <!-- Search Configuration -->
+                    <VBox spacing="15" styleClass="panel">
+
+                        <Label text="Hash Search"
+                               styleClass="section-title"/>
+
+                        <GridPane hgap="15" vgap="15">
+
+                            <Label text="SHA-256 Hash:"
+                                   GridPane.columnIndex="0"
+                                   GridPane.rowIndex="0"/>
+
+                            <TextField fx:id="hashField"
+                                       promptText="Enter a 64-character SHA-256 hash"
+                                       GridPane.columnIndex="1"
+                                       GridPane.rowIndex="0"
+                                       GridPane.columnSpan="2"/>
+
+                            <Label text="Search Mode:"
+                                   GridPane.columnIndex="0"
+                                   GridPane.rowIndex="1"/>
+
+                            <ComboBox fx:id="searchModeComboBox"
+                                      maxWidth="Infinity"
+                                      GridPane.columnIndex="1"
+                                      GridPane.rowIndex="1"/>
+
+                            <Label text="Execution Mode:"
+                                   GridPane.columnIndex="0"
+                                   GridPane.rowIndex="2"/>
+
+                            <ComboBox fx:id="executionModeComboBox"
+                                      maxWidth="Infinity"
+                                      GridPane.columnIndex="1"
+                                      GridPane.rowIndex="2"/>
+
+                            <Label text="Number of Threads:"
+                                   GridPane.columnIndex="0"
+                                   GridPane.rowIndex="3"/>
+
+                            <TextField fx:id="threadsField"
+                                       promptText="Example: 4"
+                                       GridPane.columnIndex="1"
+                                       GridPane.rowIndex="3"/>
+                            <Label text="Minimum Length:"
+                                   GridPane.columnIndex="0"
+                                   GridPane.rowIndex="4"/>
+
+                            <TextField fx:id="minLengthField"
+                                       text="1"
+                                       promptText="Example: 1"
+                                       GridPane.columnIndex="1"
+                                       GridPane.rowIndex="4"/>
+
+                            <Label text="Maximum Length:"
+                                   GridPane.columnIndex="0"
+                                   GridPane.rowIndex="5"/>
+
+                            <TextField fx:id="maxLengthField"
+                                       text="4"
+                                       promptText="Example: 4"
+                                       GridPane.columnIndex="1"
+                                       GridPane.rowIndex="5"/>
+
+                        </GridPane>
+
+                        <HBox spacing="12">
+                            <Button text="Start Search"
+                                    onAction="#handleStart"
+                                    styleClass="primary-button"/>
+
+                            <Button text="Reset"
+                                    onAction="#handleReset"
+                                    styleClass="secondary-button"/>
+                        </HBox>
+
+                        <Label fx:id="statusLabel"
+                               text="Ready for a new experiment."
+                               styleClass="status-label"/>
+
+                    </VBox>
+
+                    <!-- Search Results -->
+                    <VBox spacing="15" styleClass="panel">
+
+                        <Label text="Search Results"
+                               styleClass="section-title"/>
+
+                        <GridPane hgap="15" vgap="15">
+
+                            <Label text="Search Result:"
+                                   GridPane.columnIndex="0"
+                                   GridPane.rowIndex="0"/>
+
+                            <Label fx:id="resultLabel"
+                                   text="Not started"
+                                   styleClass="result-value"
+                                   GridPane.columnIndex="1"
+                                   GridPane.rowIndex="0"/>
+
+                            <Label text="Execution Time:"
+                                   GridPane.columnIndex="0"
+                                   GridPane.rowIndex="1"/>
+
+                            <Label fx:id="timeLabel"
+                                   text="--"
+                                   styleClass="result-value"
+                                   GridPane.columnIndex="1"
+                                   GridPane.rowIndex="1"/>
+
+                        </GridPane>
+
+                    </VBox>
+
+                    <!-- Performance Benchmark -->
+                    <VBox spacing="15" styleClass="panel">
+
+                        <Label text="Performance Benchmark"
+                               styleClass="section-title"/>
+
+                        <Label text="Compare sequential and parallel SHA-256 performance."/>
+
+                        <GridPane hgap="15" vgap="15">
+
+                            <Label text="Number of Operations:"
+                                   GridPane.columnIndex="0"
+                                   GridPane.rowIndex="0"/>
+
+                            <TextField fx:id="operationsField"
+                                       text="20000"
+                                       promptText="Example: 20000"
+                                       GridPane.columnIndex="1"
+                                       GridPane.rowIndex="0"/>
+
+                            <Label text="Number of Threads:"
+                                   GridPane.columnIndex="0"
+                                   GridPane.rowIndex="1"/>
+
+                            <ComboBox fx:id="benchmarkThreadsComboBox"
+                                      maxWidth="Infinity"
+                                      GridPane.columnIndex="1"
+                                      GridPane.rowIndex="1"/>
+
+                        </GridPane>
+
+                        <Button text="Run Performance Benchmark"
+                                onAction="#handleBenchmark"
+                                styleClass="primary-button"/>
+
+                        <Label fx:id="benchmarkStatusLabel"
+                               text="Ready to benchmark."
+                               styleClass="status-label"/>
+
+                        <Separator/>
+
+                        <Label text="Benchmark Results"
+                               styleClass="section-title"/>
+
+                        <GridPane hgap="15" vgap="15">
+
+                            <Label text="Sequential Time:"
+                                   GridPane.columnIndex="0"
+                                   GridPane.rowIndex="0"/>
+
+                            <Label fx:id="sequentialBenchmarkTimeLabel"
+                                   text="--"
+                                   styleClass="result-value"
+                                   GridPane.columnIndex="1"
+                                   GridPane.rowIndex="0"/>
+
+                            <Label text="Parallel Time:"
+                                   GridPane.columnIndex="0"
+                                   GridPane.rowIndex="1"/>
+
+                            <Label fx:id="parallelBenchmarkTimeLabel"
+                                   text="--"
+                                   styleClass="result-value"
+                                   GridPane.columnIndex="1"
+                                   GridPane.rowIndex="1"/>
+
+                            <Label text="Speedup:"
+                                   GridPane.columnIndex="0"
+                                   GridPane.rowIndex="2"/>
+
+                            <Label fx:id="speedupLabel"
+                                   text="--"
+                                   styleClass="result-value"
+                                   GridPane.columnIndex="1"
+                                   GridPane.rowIndex="2"/>
+
+                            <Label text="Efficiency:"
+                                   GridPane.columnIndex="0"
+                                   GridPane.rowIndex="3"/>
+
+                            <Label fx:id="efficiencyLabel"
+                                   text="--"
+                                   styleClass="result-value"
+                                   GridPane.columnIndex="1"
+                                   GridPane.rowIndex="3"/>
+
+                        </GridPane>
+
+                    </VBox>
+
+                    <!-- Activity Log -->
+                    <VBox spacing="10" styleClass="panel">
+
+                        <Label text="Activity Log"
+                               styleClass="section-title"/>
+
+                        <TextArea fx:id="activityLogArea"
+                                  editable="false"
+                                  wrapText="true"
+                                  prefRowCount="6"
+                                  text="Application initialized.&#10;Waiting for experiment configuration..."/>
+
+                    </VBox>
+
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

@@ -1,0 +1,8 @@
+apple
+hello
+computer
+student
+network
+parallel
+java
+security
